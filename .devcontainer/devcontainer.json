@@ -1,0 +1,24 @@
+{
+  "name": "Regalade dev container",
+  "build": {
+    "dockerfile": "../dockerfile.dev"
+  },
+  "workspaceFolder": "/app",
+
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/app,type=bind"
+  ],
+
+  "forwardPorts": [8080],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+
+  "postCreateCommand": "npm install"
+}
