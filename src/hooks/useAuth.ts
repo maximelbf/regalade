@@ -1,11 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { authService } from '../services/authService'
 
 export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate()
 
-  const logout = () => {
+  useEffect(() => {
+    // Vérifier si un token existe au chargement
+    setIsLoggedIn(authService.isAuthenticated())
+  }, [])
+
+  const logout = async () => {
+    await authService.logout()
     setIsLoggedIn(false)
     navigate('/')
   }
@@ -18,8 +25,14 @@ export function useAuth() {
     }
   }
 
+  const login = () => {
+    setIsLoggedIn(true)
+  }
+
   return {
     isLoggedIn,
     handleLogin,
+    login,
+    logout,
   }
 }

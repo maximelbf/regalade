@@ -7,8 +7,8 @@ interface BannerProps {
 }
 
 export default function Banner({ 
-  title = 'Welcome to Gourmet',
-  subtitle = 'Discover delicious recipes for every occasion',
+  title = 'Bienvenue à Gourmet',
+  subtitle = 'Découvrez des recettes délicieuses pour chaque occasion',
   imageUrl = bannerImage
 }: BannerProps) {
   return (

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { config, fetchApi } from '../config/api'
 
 interface HeaderProps {
   isLoggedIn: boolean
@@ -7,12 +9,26 @@ interface HeaderProps {
 
 export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      // TODO: Implement search functionality with API call to /search?q=...
-      console.log('Searching for:', searchQuery)
+      fetchApi(`${config.api.endpoints.search}?q=${encodeURIComponent(searchQuery)}`)
+        .then((results) => {
+          console.log('Résultats de recherche:', results)
+        })
+        .catch((err) => {
+          console.error('Erreur lors de la recherche:', err)
+        })
+    }
+  }
+
+  const handleLoginClick = () => {
+    if (isLoggedIn) {
+      onLoginToggle()
+    } else {
+      navigate('/login')
     }
   }
 
@@ -22,7 +38,7 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
         {/* Logo */}
         <div className="flex-shrink-0">
           <span className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
-            Gourmet
+            {config.app.name}
           </span>
         </div>
 
@@ -33,7 +49,7 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
         >
           <input
             type="text"
-            placeholder="Search recipes..."
+            placeholder="Chercher des recettes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 bg-transparent outline-none"
@@ -50,9 +66,9 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
               ? 'bg-purple-600 hover:bg-purple-700' 
               : 'bg-indigo-500 hover:bg-indigo-600'
           } text-white hover:shadow-lg hover:-translate-y-0.5`}
-          onClick={onLoginToggle}
+          onClick={handleLoginClick}
         >
-          {isLoggedIn ? 'Logout' : 'Login'}
+          {isLoggedIn ? 'Déconnexion' : 'Connexion'}
         </button>
       </div>
     </header>

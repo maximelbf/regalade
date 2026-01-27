@@ -1,8 +1,8 @@
 const navigationLinks = [
   { href: '/planner', label: 'Planner' },
-  { href: '/recipes', label: 'Recipes' },
-  { href: '/healthy', label: 'Healthy' },
-  { href: '/fast', label: 'Quick' },
+  { href: '/recipes', label: 'Recettes' },
+  { href: '/healthy', label: 'Sain' },
+  { href: '/fast', label: 'Rapide' },
 ]
 
 export default function Navigation() {
