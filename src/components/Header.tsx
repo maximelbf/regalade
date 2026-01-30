@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { config, fetchApi } from '../config/api'
 
 interface HeaderProps {
@@ -59,13 +59,18 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
           </button>
         </form>
 
+        {/* Favorites Link */}
+        <Link to="/favorites" className="text-gray-600 hover:text-gray-800 transition-colors">
+          Favorites
+        </Link>
+
         {/* Login Button */}
         <button 
           className={`flex-shrink-0 px-6 py-2 rounded-full font-semibold transition-all ${
             isLoggedIn 
               ? 'bg-purple-600 hover:bg-purple-700' 
               : 'bg-indigo-500 hover:bg-indigo-600'
-          } text-white hover:shadow-lg hover:-translate-y-0.5`}
+          } text-white hover:shadow-lg hover:-translate-y-0.5 hover:cursor-pointer`}
           onClick={handleLoginClick}
         >
           {isLoggedIn ? 'Déconnexion' : 'Connexion'}

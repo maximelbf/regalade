@@ -1,16 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { RecipeCard } from './RecipeCard'
 import { fetchApi, config } from '../config/api'
-
-interface Recipe {
-  id: string
-  name: string
-  description: string
-  image_url: string
-  prep_time: number
-  cook_time: number
-  servings: number
-}
+import type { Recipe } from '../types'
 
 export const RecipesScrollbar = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -151,7 +142,7 @@ export const RecipesScrollbar = () => {
               key={recipe.id}
               id={recipe.id}
               name={recipe.name}
-              description={recipe.description}
+              description={recipe.description ?? ""}
               imageUrl={recipe.image_url}
             />
           ))}
