@@ -25,13 +25,7 @@ export const RecipesScrollbar = () => {
       try {
         setIsLoading(true)
         setError(null)
-        
-        // Log pour le diagnostique
-        const url = `${config.api.baseUrl}${config.api.endpoints.recipes}?limit=12`
-        console.log('Chargement des recettes depuis:', url)
-        
         const data = await fetchApi<Recipe[]>(`${config.api.endpoints.recipes}?limit=12`)
-        console.log('Recettes chargées:', data)
         setRecipes(data)
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Erreur lors du chargement des recettes'

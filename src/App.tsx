@@ -4,6 +4,7 @@ import './App.css'
 import { testApi } from './utils/testApi'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/login'
+import { authService } from './services/authService'
 
 // Rendre testApi disponible en console
 declare global {
@@ -14,13 +15,10 @@ if (typeof window !== 'undefined') {
 }
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
-  const handleLogin = () => {
-    setIsLoggedIn(true)
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(authService.isAuthenticated())
 
   const handleLogout = () => {
+    authService.clearToken()
     setIsLoggedIn(false)
   }
 
@@ -28,7 +26,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage isLoggedIn={isLoggedIn} onLoginToggle={handleLogout} />} />
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/login" element={<LoginPage onLogin={() => setIsLoggedIn(true)} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

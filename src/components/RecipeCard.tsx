@@ -11,7 +11,6 @@ export const RecipeCard = ({ id, name, description, imageUrl, onRecipeClick }: R
     if (onRecipeClick) {
       onRecipeClick(id)
     } else {
-      // Navigate using window.location if router not available
       window.location.href = `/recettes/${id}`
     }
   }

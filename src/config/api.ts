@@ -44,9 +44,6 @@ export const fetchApi = async <T,>(
   options: RequestInit = {}
 ): Promise<T> => {
   const url = buildApiUrl(endpoint)
-  
-  console.log('[fetchApi] 🔄 Requête vers:', url)
-
   try {
     const response = await fetch(url, {
       method: options.method || 'GET',
@@ -56,11 +53,7 @@ export const fetchApi = async <T,>(
       },
       ...options,
     })
-    
-    console.log('[fetchApi] 📍 Status:', response.status)
-    console.log('[fetchApi] 📄 Content-Type:', response.headers.get('content-type'))
 
-    // Vérifier le statut HTTP d'abord
     if (!response.ok) {
       let errorMessage = `Erreur HTTP ${response.status}: ${response.statusText}`
       
@@ -82,7 +75,6 @@ export const fetchApi = async <T,>(
 
     // Parser la réponse JSON
     const json = await response.json()
-    console.log('[fetchApi] ✅ JSON reçu:', Array.isArray(json) ? `Array de ${json.length} éléments` : 'Objet')
     return json
   } catch (error) {
     if (error instanceof SyntaxError) {
