@@ -2,7 +2,7 @@
  * Configuration globale pour l'application
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const config = {
   api: {
