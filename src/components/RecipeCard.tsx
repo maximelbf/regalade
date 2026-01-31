@@ -18,14 +18,14 @@ export const RecipeCard = ({ id, name, description, imageUrl, onRecipeClick }: R
   return (
     <div
       onClick={handleClick}
-      className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer overflow-hidden group"
+      className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-xl transition-all hover:scale-102 cursor-pointer overflow-clip group"
     >
       {/* Image */}
       <div className="relative w-full h-40 overflow-hidden bg-gray-200">
         <img
           src={imageUrl}
           alt={name}
-          className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+          className="w-full h-full object-cover transition-transform duration-300"
           onError={(e) => {
             e.currentTarget.src = 'https://via.placeholder.com/300x200?text=No+Image'
           }}

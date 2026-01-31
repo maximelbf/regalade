@@ -134,7 +134,7 @@ export const RecipesScrollbar = () => {
         <div
           ref={scrollContainerRef}
           onScroll={handleScroll}
-          className="flex gap-6 overflow-x-auto scroll-smooth pb-4 px-2"
+          className="flex gap-6 overflow-x-auto overflow-y-visible scroll-smooth pt-4 pb-4 px-2"
           style={{ scrollBehavior: 'smooth' }}
         >
           {recipes.map((recipe) => (
