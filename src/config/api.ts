@@ -61,7 +61,6 @@ export const fetchApi = async <T,>(
         const error = await response.json()
         errorMessage = error.detail || errorMessage
       } catch {
-        // Essayer de récupérer le texte brut comme fallback
         try {
           const text = await response.text()
           if (text) {
@@ -78,12 +77,12 @@ export const fetchApi = async <T,>(
     return json
   } catch (error) {
     if (error instanceof SyntaxError) {
-      console.error('[fetchApi] ❌ Erreur de parsing JSON - la réponse n\'est pas du JSON valide')
+      console.error('[fetchApi] Erreur de parsing JSON - la réponse n\'est pas du JSON valide')
     }
     if (error instanceof TypeError) {
-      console.error('[fetchApi] ❌ Erreur réseau - impossible d\'atteindre l\'API')
+      console.error('[fetchApi] Erreur réseau - impossible d\'atteindre l\'API')
     }
-    console.error('[fetchApi] ❌ Erreur:', error instanceof Error ? error.message : String(error))
+    console.error('[fetchApi] Erreur:', error instanceof Error ? error.message : String(error))
     throw error
   }
 }
