@@ -73,6 +73,18 @@ export const fetchApi = async <T,>(
       throw new Error(errorMessage)
     }
 
+    // Vérifier si la réponse a du contenu avant de parser le JSON
+    const contentType = response.headers.get('content-type')
+    const contentLength = response.headers.get('content-length')
+    
+    // Si la réponse est vide ou n'est pas du JSON, retourner null
+    if (contentLength === '0' || !contentType?.includes('application/json')) {
+      const text = await response.text()
+      if (!text || text.trim() === '') {
+        return null as T
+      }
+    }
+
     // Parser la réponse JSON
     const json = await response.json()
     return json

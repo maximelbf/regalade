@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import type { Recipe } from '../types'
-import { config, fetchApi } from '../config/api'
+import { favoritesService } from '../services/favoritesService'
 
 type UseGetFavoritesReturn = {
   favorites: Recipe[]
   loading: boolean
   error: Error | null
+  refresh: () => Promise<void>
 }
 
 export const useGetFavorites = (): UseGetFavoritesReturn => {
@@ -13,25 +14,27 @@ export const useGetFavorites = (): UseGetFavoritesReturn => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        setLoading(true)
-        const data = await fetchApi<Recipe[]>(config.api.endpoints.favorites, {
-          method: 'GET',
-        })
-        setFavorites(data)
-        setError(null)
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error('Unknown error'))
-        setFavorites([])
-      } finally {
-        setLoading(false)
-      }
+  const fetchFavorites = async (forceRefresh: boolean = false) => {
+    try {
+      setLoading(true)
+      const data = await favoritesService.getFavorites(forceRefresh)
+      setFavorites(data)
+      setError(null)
+    } catch (err) {
+      setError(err instanceof Error ? err : new Error('Unknown error'))
+      setFavorites([])
+    } finally {
+      setLoading(false)
     }
+  }
 
+  const refresh = async () => {
+    await fetchFavorites(true)
+  }
+
+  useEffect(() => {
     fetchFavorites()
   }, [])
 
-  return { favorites, loading, error }
+  return { favorites, loading, error, refresh }
 }
