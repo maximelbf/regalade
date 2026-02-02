@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
+ENV VITE_API_BASE_URL=https://gourmet.cours.quimerch.com
 RUN npm run build
 
 FROM nginx:alpine AS runtime
