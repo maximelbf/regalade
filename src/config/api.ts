@@ -51,6 +51,7 @@ export const fetchApi = async <T,>(
         'Accept': 'application/json',
         ...options.headers,
       },
+      credentials: 'include',
       ...options,
     })
 

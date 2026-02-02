@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import RecipesGrid from "../components/RecipesGrid";
 
 type FavoritePageProps = {
     isLoggedIn: boolean;
@@ -9,6 +10,7 @@ export default function FavoritePage({ isLoggedIn, onLoginToggle }: FavoritePage
     return (
         <div>
             <Header isLoggedIn={isLoggedIn} onLoginToggle={onLoginToggle} />
+            <RecipesGrid />
         </div>
     )
 }

@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import type { Recipe } from '../types'
 import { config, fetchApi } from '../config/api'
-import { authService } from '../services/authService'
 
-interface UseGetFavoritesReturn {
+type UseGetFavoritesReturn = {
   favorites: Recipe[]
   loading: boolean
   error: Error | null
@@ -19,9 +18,7 @@ export const useGetFavorites = (): UseGetFavoritesReturn => {
       try {
         setLoading(true)
         const data = await fetchApi<Recipe[]>(config.api.endpoints.favorites, {
-          headers: {
-            ...authService.getAuthHeaders(),
-          },
+          method: 'GET',
         })
         setFavorites(data)
         setError(null)

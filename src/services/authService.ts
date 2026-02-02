@@ -9,8 +9,6 @@ type LoginResponse = {
   token: string
 }
 
-const TOKEN_KEY = 'auth_token'
-
 class AuthService {
   async login(credentials: LoginCredentials): Promise<LoginResponse> {
     const response = await fetchApi<LoginResponse>(config.api.endpoints.login, {
@@ -20,33 +18,40 @@ class AuthService {
       },
       body: JSON.stringify(credentials),
     })
-
+    
     if (response.token) {
-      this.setToken(response.token)
+      this.setTokenCookie(response.token)
     }
-
+    
     return response
   }
-
-  getToken(): string | null {
-    return localStorage.getItem(TOKEN_KEY)
+  
+  private setTokenCookie(token: string): void {
+    const expires = new Date()
+    expires.setDate(expires.getDate() + 7)
+    document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
   }
 
-  setToken(token: string): void {
-    localStorage.setItem(TOKEN_KEY, token)
-  }
-
-  clearToken(): void {
-    localStorage.removeItem(TOKEN_KEY)
+  private clearTokenCookie(): void {
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken()
+    return document.cookie.split('; ').some(cookie => cookie.startsWith('token='))
   }
 
-  getAuthHeaders(): HeadersInit {
-    const token = this.getToken()
-    return token ? { Authorization: `Bearer ${token}` } : {}
+  async logout(): Promise<void> {
+    try {
+      const url = `${config.api.baseUrl}${config.api.endpoints.logout}`
+      await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+      })
+    } catch (error) {
+      console.error('Logout error:', error)
+    } finally {
+      this.clearTokenCookie()
+    }
   }
 }
 

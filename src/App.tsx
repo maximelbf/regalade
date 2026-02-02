@@ -20,7 +20,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(authService.isAuthenticated())
 
   const handleLogout = () => {
-    authService.clearToken()
+    authService.logout()
     setIsLoggedIn(false)
   }
 

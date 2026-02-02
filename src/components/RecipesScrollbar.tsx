@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { RecipeCard } from './RecipeCard'
 import { fetchApi, config } from '../config/api'
 import type { Recipe } from '../types'
+import Loader from './Loader'
 
 export const RecipesScrollbar = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -65,14 +66,7 @@ export const RecipesScrollbar = () => {
   }
 
   if (isLoading) {
-    return (
-      <section className="w-full px-8 py-8 bg-white border-b border-gray-100">
-        <div className="flex items-center justify-center">
-          <div className="animate-spin">⏳</div>
-          <p className="ml-2 text-gray-600">Chargement des recettes...</p>
-        </div>
-      </section>
-    )
+    return <Loader />
   }
 
   if (recipes.length === 0) {

@@ -38,3 +38,9 @@ export type Ingredient = {
     available_nov?: boolean;
     available_dec?: boolean;
 }
+
+export type User = {
+    email: string;
+    username: string;
+    full_name: string;
+}
