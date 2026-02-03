@@ -11,6 +11,12 @@ jobs:
     name: Lint, Format & Test
     runs-on: ubuntu-latest
 
+    env:
+      VITE_API_BASE_URL: https://gourmet.cours.quimerch.com
+      VITE_APP_NAME: Gourmet
+      VITE_APP_VERSION: 0.0.1
+      VITE_ENABLE_ADMIN_PANEL: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
