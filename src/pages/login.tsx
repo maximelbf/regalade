@@ -60,6 +60,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               id="username"
               type="text"
               value={username}
+              onChange={e => setUsername(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"
               disabled={loading}
             />
@@ -73,6 +74,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
               id="password"
               type="password"
               value={password}
+              onChange={e => setPassword(e.target.value)}
               className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 outline-none transition-all"
               disabled={loading}
             />
@@ -86,13 +88,6 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-
-        <div className="mt-6 text-center text-sm text-gray-600">
-          Don't have an account?{' '}
-          <a href="#" className="text-indigo-600 hover:text-indigo-700 font-semibold">
-            Sign up
-          </a>
-        </div>
       </div>
     </div>
   )

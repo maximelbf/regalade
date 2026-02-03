@@ -16,7 +16,6 @@ export default function SearchPage({ isLoggedIn, onLoginToggle }: SearchPageProp
   const { results, loading, error, search } = useSearch()
 
   useEffect(() => {
-    console.log('SearchPage mounted, query:', query)
     if (query) {
       search(query)
     }
@@ -28,12 +27,8 @@ export default function SearchPage({ isLoggedIn, onLoginToggle }: SearchPageProp
 
       <main className="flex-grow w-full px-8 py-12">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Search Results
-          </h1>
-          <p className="text-gray-600 mb-8">
-            {query && `Results for "${query}"`}
-          </p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Search Results</h1>
+          <p className="text-gray-600 mb-8">{query && `Results for "${query}"`}</p>
 
           {loading && <Loader />}
 
@@ -54,7 +49,7 @@ export default function SearchPage({ isLoggedIn, onLoginToggle }: SearchPageProp
 
           {!loading && results.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {results.map((recipe) => (
+              {results.map(recipe => (
                 <RecipeCard
                   key={recipe.id}
                   id={recipe.id}

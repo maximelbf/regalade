@@ -26,7 +26,7 @@ export const RecipeCard = ({ id, name, description, imageUrl, onRecipeClick }: R
           src={imageUrl}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-300"
-          onError={(e) => {
+          onError={e => {
             e.currentTarget.src = 'https://via.placeholder.com/300x200?text=No+Image'
           }}
         />

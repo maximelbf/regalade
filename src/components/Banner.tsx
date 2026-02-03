@@ -7,16 +7,16 @@ interface BannerProps {
   imageUrl?: string
 }
 
-export default function Banner({ 
+export default function Banner({
   title = `Welcome to ${config.app.name}`,
   subtitle = 'Discover and share amazing recipes!',
-  imageUrl = bannerImage
+  imageUrl = bannerImage,
 }: BannerProps) {
   return (
     <section className="relative w-full h-96 bg-gradient-to-r from-red-500 to-orange-600 overflow-hidden">
-      <img 
-        src={imageUrl} 
-        alt="Welcome Banner" 
+      <img
+        src={imageUrl}
+        alt="Welcome Banner"
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-black/30 flex flex-col items-center justify-center text-center text-white px-8">

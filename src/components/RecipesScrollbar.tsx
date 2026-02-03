@@ -20,7 +20,8 @@ export const RecipesScrollbar = () => {
         const data = await fetchApi<Recipe[]>(`${config.api.endpoints.recipes}?limit=12`)
         setRecipes(data)
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Erreur lors du chargement des recettes'
+        const errorMessage =
+          err instanceof Error ? err.message : 'Erreur lors du chargement des recettes'
         setError(errorMessage)
         console.error('Erreur lors du chargement des recettes:', err)
       } finally {
@@ -43,7 +44,8 @@ export const RecipesScrollbar = () => {
     if (scrollContainerRef.current) {
       const scrollAmount = 300
       const newScrollLeft =
-        scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
+        scrollContainerRef.current.scrollLeft +
+        (direction === 'left' ? -scrollAmount : scrollAmount)
       scrollContainerRef.current.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth',
@@ -55,10 +57,13 @@ export const RecipesScrollbar = () => {
     return (
       <section className="w-full px-8 py-8 bg-white border-b border-gray-100">
         <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
-          <p className="text-red-700 font-semibold mb-2">⚠️ Erreur lors du chargement des recettes</p>
+          <p className="text-red-700 font-semibold mb-2">
+            ⚠️ Erreur lors du chargement des recettes
+          </p>
           <p className="text-red-700 text-sm">{error}</p>
           <p className="text-red-600 text-xs mt-2 font-mono">
-            URL: {config.api.baseUrl}{config.api.endpoints.recipes}
+            URL: {config.api.baseUrl}
+            {config.api.endpoints.recipes}
           </p>
         </div>
       </section>
@@ -101,7 +106,12 @@ export const RecipesScrollbar = () => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
         )}
@@ -131,12 +141,12 @@ export const RecipesScrollbar = () => {
           className="flex gap-6 overflow-x-auto overflow-y-visible scroll-smooth pt-4 pb-4 px-2"
           style={{ scrollBehavior: 'smooth' }}
         >
-          {recipes.map((recipe) => (
+          {recipes.map(recipe => (
             <RecipeCard
               key={recipe.id}
               id={recipe.id}
               name={recipe.name}
-              description={recipe.description ?? ""}
+              description={recipe.description ?? ''}
               imageUrl={recipe.image_url}
             />
           ))}

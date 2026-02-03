@@ -17,7 +17,7 @@ class FavoritesService {
     try {
       const cachedData = sessionStorage.getItem(this.STORAGE_KEY)
       const timestamp = sessionStorage.getItem(this.TIMESTAMP_KEY)
-      
+
       if (cachedData && timestamp) {
         this.favoritesCache = JSON.parse(cachedData)
         this.cacheTimestamp = parseInt(timestamp, 10)
@@ -43,7 +43,7 @@ class FavoritesService {
       return false
     }
     const now = Date.now()
-    return (now - this.cacheTimestamp) < this.CACHE_DURATION
+    return now - this.cacheTimestamp < this.CACHE_DURATION
   }
 
   clearCache(): void {
@@ -58,16 +58,16 @@ class FavoritesService {
       return this.favoritesCache
     }
 
-    const response = await fetchApi<Array<{recipe: Recipe}>>(config.api.endpoints.favorites, {
+    const response = await fetchApi<Array<{ recipe: Recipe }>>(config.api.endpoints.favorites, {
       method: 'GET',
     })
-    
+
     const favorites = response.map(item => item.recipe)
-    
+
     this.favoritesCache = favorites
     this.cacheTimestamp = Date.now()
     this.saveCacheToStorage()
-    
+
     return favorites
   }
 

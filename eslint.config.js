@@ -3,6 +3,7 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default [
   {
@@ -10,6 +11,7 @@ export default [
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  eslintConfigPrettier,
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -50,23 +52,6 @@ export default [
       'prefer-const': 'error',
       'no-var': 'error',
       'eqeqeq': ['error', 'always'],
-      
-      // Indentation rules
-      '@typescript-eslint/indent': ['error', 2, {
-        SwitchCase: 1,
-        VariableDeclarator: 1,
-        outerIIFEBody: 1,
-        MemberExpression: 1,
-        FunctionDeclaration: { parameters: 1, body: 1 },
-        FunctionExpression: { parameters: 1, body: 1 },
-        CallExpression: { arguments: 1 },
-        ArrayExpression: 1,
-        ObjectExpression: 1,
-        ImportDeclaration: 1,
-        flatTernaryExpressions: false,
-        ignoreComments: false,
-      }],
-      'indent': 'off', // Disable base rule as it conflicts with @typescript-eslint/indent
     },
   },
 ]

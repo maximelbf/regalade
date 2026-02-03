@@ -32,13 +32,13 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
         setIsFavorite(false)
       }
     }
-    
+
     checkIfFavorite()
   }, [recetteId, isLoggedIn])
 
   const handleFavoriteToggle = async () => {
     if (!recetteId || !recipe) return
-    
+
     try {
       if (isFavorite) {
         await removeFavorite(recetteId)
@@ -85,7 +85,7 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
                 src={recipe.image_url}
                 alt={recipe.name}
                 className="w-full h-full object-cover"
-                onError={(e) => {
+                onError={e => {
                   e.currentTarget.src = 'https://via.placeholder.com/600x400?text=No+Image'
                 }}
               />
@@ -104,26 +104,26 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
 
                 {/* Bouton Favori */}
                 {isLoggedIn && (
-                    <button
-                      onClick={handleFavoriteToggle}
-                      className="flex-shrink-0 cursor-pointer"
-                      aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                  <button
+                    onClick={handleFavoriteToggle}
+                    className="flex-shrink-0 cursor-pointer"
+                    aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    <svg
+                      className="h-8 w-8 transition-all duration-200 hover:scale-110"
+                      viewBox="0 0 24 24"
+                      fill={isFavorite ? 'currentColor' : 'none'}
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      style={{ color: isFavorite ? '#ef4444' : '#6b7280' }}
                     >
-                      <svg
-                        className="h-8 w-8 transition-all duration-200 hover:scale-110"
-                        viewBox="0 0 24 24"
-                        fill={isFavorite ? "currentColor" : "none"}
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        style={{ color: isFavorite ? '#ef4444' : '#6b7280' }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                        />
-                      </svg>
-                    </button>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      />
+                    </svg>
+                  </button>
                 )}
               </div>
 
@@ -134,37 +134,55 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
                     <div className="space-y-6">
                       {recipe.category && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Catégorie</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Catégorie
+                          </p>
                           <p className="text-lg font-medium text-gray-900">{recipe.category}</p>
                         </div>
                       )}
                       {recipe.prep_time && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Préparation</p>
-                          <p className="text-lg font-medium text-gray-900">{recipe.prep_time} min</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Préparation
+                          </p>
+                          <p className="text-lg font-medium text-gray-900">
+                            {recipe.prep_time} min
+                          </p>
                         </div>
                       )}
                       {recipe.cook_time && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Cuisson</p>
-                          <p className="text-lg font-medium text-gray-900">{recipe.cook_time} min</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Cuisson
+                          </p>
+                          <p className="text-lg font-medium text-gray-900">
+                            {recipe.cook_time} min
+                          </p>
                         </div>
                       )}
                       {recipe.prep_time && recipe.cook_time && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Temps total</p>
-                          <p className="text-lg font-medium text-gray-900">{recipe.prep_time + recipe.cook_time} min</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Temps total
+                          </p>
+                          <p className="text-lg font-medium text-gray-900">
+                            {recipe.prep_time + recipe.cook_time} min
+                          </p>
                         </div>
                       )}
                       {recipe.servings && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Portions</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Portions
+                          </p>
                           <p className="text-lg font-medium text-gray-900">{recipe.servings}</p>
                         </div>
                       )}
                       {recipe.when_to_eat && (
                         <div>
-                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">Moment</p>
+                          <p className="text-sm text-gray-600 font-semibold uppercase tracking-wide">
+                            Moment
+                          </p>
                           <p className="text-lg font-medium text-gray-900">{recipe.when_to_eat}</p>
                         </div>
                       )}
@@ -173,7 +191,9 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
 
                   <div className="flex-1">
                     <h2 className="text-2xl font-semibold text-gray-800 mb-4">Instructions</h2>
-                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">{recipe.instructions}</p>
+                    <p className="text-gray-700 whitespace-pre-wrap leading-relaxed">
+                      {recipe.instructions}
+                    </p>
                   </div>
                 </div>
               )}

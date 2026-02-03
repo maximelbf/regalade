@@ -26,7 +26,7 @@ class AuthService {
     try {
       const cachedData = sessionStorage.getItem(this.STORAGE_KEY)
       const timestamp = sessionStorage.getItem(this.TIMESTAMP_KEY)
-      
+
       if (cachedData && timestamp) {
         this.userCache = JSON.parse(cachedData)
         this.cacheTimestamp = parseInt(timestamp, 10)
@@ -55,15 +55,15 @@ class AuthService {
       },
       body: JSON.stringify(credentials),
     })
-    
+
     if (response.token) {
       this.setTokenCookie(response.token)
       this.clearUserCache()
     }
-    
+
     return response
   }
-  
+
   private setTokenCookie(token: string): void {
     const expires = new Date()
     expires.setDate(expires.getDate() + 7)
@@ -105,7 +105,7 @@ class AuthService {
       return false
     }
     const now = Date.now()
-    return (now - this.cacheTimestamp) < this.CACHE_DURATION
+    return now - this.cacheTimestamp < this.CACHE_DURATION
   }
 
   async getCurrentUser(forceRefresh: boolean = false): Promise<User> {
@@ -116,11 +116,11 @@ class AuthService {
     const user = await fetchApi<User>(config.api.endpoints.me, {
       method: 'GET',
     })
-    
+
     this.userCache = user
     this.cacheTimestamp = Date.now()
     this.saveCacheToStorage()
-    
+
     return user
   }
 }
