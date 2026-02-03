@@ -6,7 +6,6 @@ type UseGetFavoritesReturn = {
   favorites: Recipe[]
   loading: boolean
   error: Error | null
-  refresh: () => Promise<void>
 }
 
 export const useGetFavorites = (): UseGetFavoritesReturn => {
@@ -28,13 +27,9 @@ export const useGetFavorites = (): UseGetFavoritesReturn => {
     }
   }
 
-  const refresh = async () => {
-    await fetchFavorites(true)
-  }
-
   useEffect(() => {
     fetchFavorites()
   }, [])
 
-  return { favorites, loading, error, refresh }
+  return { favorites, loading, error }
 }

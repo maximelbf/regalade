@@ -11,6 +11,7 @@ export const config = {
       search: '/search',
       login: '/login',
       logout: '/logout',
+      me: '/me',
       recipes: '/recipes',
       recipesById: (id: string) => `/recipes/${id}`,
       favorites: '/favorites',
