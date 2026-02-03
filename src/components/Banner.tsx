@@ -1,4 +1,5 @@
 import bannerImage from '../assets/banner.png'
+import { config } from '../config/api'
 
 interface BannerProps {
   title?: string
@@ -7,12 +8,12 @@ interface BannerProps {
 }
 
 export default function Banner({ 
-  title = 'Bienvenue à Gourmet',
-  subtitle = 'Découvrez des recettes délicieuses pour chaque occasion',
+  title = `Welcome to ${config.app.name}`,
+  subtitle = 'Discover and share amazing recipes!',
   imageUrl = bannerImage
 }: BannerProps) {
   return (
-    <section className="relative w-full h-96 bg-gradient-to-r from-indigo-500 to-purple-600 overflow-hidden">
+    <section className="relative w-full h-96 bg-gradient-to-r from-red-500 to-orange-600 overflow-hidden">
       <img 
         src={imageUrl} 
         alt="Welcome Banner" 

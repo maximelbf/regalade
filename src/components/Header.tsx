@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { config, fetchApi } from '../config/api'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { config } from '../config/api'
 
 interface HeaderProps {
   isLoggedIn: boolean
@@ -10,17 +10,20 @@ interface HeaderProps {
 export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (location.pathname === '/') {
+      e.preventDefault()
+    }
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchQuery.trim()) {
-      fetchApi(`${config.api.endpoints.search}?q=${encodeURIComponent(searchQuery)}`)
-        .then((results) => {
-          console.log('Résultats de recherche:', results)
-        })
-        .catch((err) => {
-          console.error('Erreur lors de la recherche:', err)
-        })
+      const query = searchQuery.trim()
+      setSearchQuery('')
+      navigate(`/search?q=${encodeURIComponent(query)}`)
     }
   }
 
@@ -33,18 +36,18 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-100 w-full bg-white border-b-2 border-gray-100 shadow-sm">
+    <header className="sticky top-0 z-100 w-full bg-[#FFFDF7] border-b-2 border-gray-100 shadow-sm">
       <div className="w-full px-8 py-4 flex items-center justify-between gap-8">
         {/* Logo */}
         <div className="flex-shrink-0">
-          <span className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+          <Link to="/" onClick={handleLogoClick} className="text-2xl font-bold bg-gradient-to-r from-red-500 to-orange-600 bg-clip-text text-transparent">
             {config.app.name}
-          </span>
+          </Link>
         </div>
 
         {/* Search Bar */}
         <form 
-          className="flex-1 max-w-2xl flex items-center gap-2 bg-gray-100 border-2 border-gray-200 rounded-full px-4 py-2 transition-all focus-within:border-indigo-500 focus-within:shadow-lg focus-within:shadow-indigo-100" 
+          className="flex-1 max-w-2xl flex items-center gap-2 bg-gray-100 border-2 border-gray-200 rounded-full px-4 py-2 transition-all focus-within:border-red-500 focus-within:shadow-lg focus-within:shadow-red-100" 
           onSubmit={handleSearch}
         >
           <input
@@ -70,8 +73,8 @@ export default function Header({ isLoggedIn, onLoginToggle }: HeaderProps) {
           <button 
             className={`flex-shrink-0 px-6 py-2 rounded-full font-semibold transition-all ${
               isLoggedIn 
-                ? 'bg-purple-600 hover:bg-purple-700' 
-                : 'bg-indigo-500 hover:bg-indigo-600'
+                ? 'bg-orange-600 hover:bg-orange-700' 
+                : 'bg-red-500 hover:bg-red-600'
             } text-white hover:shadow-lg hover:-translate-y-0.5 hover:cursor-pointer`}
             onClick={handleLoginClick}
           >

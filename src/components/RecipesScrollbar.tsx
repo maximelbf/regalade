@@ -71,19 +71,19 @@ export const RecipesScrollbar = () => {
 
   if (recipes.length === 0) {
     return (
-      <section className="w-full px-8 py-8 bg-white border-b border-gray-100">
+      <section className="w-full px-8 py-8 bg-[#FFFDF7] border-b border-gray-100">
         <p className="text-gray-600 text-center">Aucune recette disponible</p>
       </section>
     )
   }
 
   return (
-    <section className="w-full px-8 py-8 bg-white border-b border-gray-100">
+    <section className="w-full px-8 py-8 bg-[#FFFDF7] border-b border-gray-100">
       <div className="mb-6">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-          Recettes à découvrir
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+          Popular Recipes
         </h2>
-        <p className="text-gray-600 text-sm mt-2">Faites défiler pour explorer nos recettes</p>
+        <p className="text-gray-600 text-sm mt-2">Scroll to see more recipes</p>
       </div>
 
       {/* Scrollable Container with Arrows */}
@@ -92,7 +92,7 @@ export const RecipesScrollbar = () => {
         {showLeftArrow && (
           <button
             onClick={() => scroll('left')}
-            className="absolute left-0 top-1/3 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all hover:scale-110"
+            className="absolute left-0 top-1/3 -translate-y-1/2 z-10 bg-[#FFFDF7]/80 hover:bg-[#FFFDF7] rounded-full p-2 shadow-lg transition-all hover:scale-110"
             aria-label="Scroll left"
           >
             <svg
@@ -110,7 +110,7 @@ export const RecipesScrollbar = () => {
         {showRightArrow && (
           <button
             onClick={() => scroll('right')}
-            className="absolute right-0 top-1/3 -translate-y-1/2 z-10 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-all hover:scale-110"
+            className="absolute right-0 top-1/3 -translate-y-1/2 z-10 bg-[#FFFDF7]/80 hover:bg-[#FFFDF7] rounded-full p-2 shadow-lg transition-all hover:scale-110"
             aria-label="Scroll right"
           >
             <svg

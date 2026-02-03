@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import Navigation from '../components/Navigation'
 import { useGetRecipe } from '../hooks/useGetRecipe'
 import { useFavorite } from '../hooks/useFavorite'
 import { favoritesService } from '../services/favoritesService'
@@ -56,7 +55,6 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
   return (
     <div className="flex flex-col min-h-screen w-full bg-gray-50">
       <Header isLoggedIn={isLoggedIn} onLoginToggle={onLoginToggle} />
-      <Navigation />
 
       <main className="w-full px-8 py-12 mt-6 flex-grow relative">
         <button
@@ -80,7 +78,7 @@ export default function RecipeDetailPage({ isLoggedIn, onLoginToggle }: RecipeDe
         )}
 
         {recipe && (
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
+          <div className="bg-[#FFFDF7] rounded-lg shadow-lg overflow-hidden max-w-5xl mx-auto">
             {/* Image */}
             <div className="w-full h-[500px] bg-gray-200 overflow-hidden">
               <img

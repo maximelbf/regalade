@@ -18,7 +18,7 @@ export const RecipeCard = ({ id, name, description, imageUrl, onRecipeClick }: R
   return (
     <div
       onClick={handleClick}
-      className="flex-shrink-0 w-64 bg-white rounded-lg shadow-md hover:shadow-xl transition-all hover:scale-102 cursor-pointer overflow-clip group"
+      className="flex-shrink-0 w-64 bg-[#FFFDF7] rounded-lg shadow-md hover:shadow-xl transition-all hover:scale-102 cursor-pointer overflow-clip group"
     >
       {/* Image */}
       <div className="relative w-full h-40 overflow-hidden bg-gray-200">

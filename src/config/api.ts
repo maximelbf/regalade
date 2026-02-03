@@ -11,21 +11,14 @@ export const config = {
       search: '/search',
       login: '/login',
       logout: '/logout',
-      me: '/me',
       recipes: '/recipes',
       recipesById: (id: string) => `/recipes/${id}`,
       favorites: '/favorites',
       userFavorites: (username: string) => `/users/${username}/favorites`,
-      ingredients: '/ingredients',
-      admin: '/admin',
     },
   },
   app: {
-    name: import.meta.env.VITE_APP_NAME || 'Gourmet',
-    version: import.meta.env.VITE_APP_VERSION || '0.0.1',
-  },
-  features: {
-    adminPanel: import.meta.env.VITE_ENABLE_ADMIN_PANEL === 'true',
+    name: 'Regalade',
   },
 }
 
