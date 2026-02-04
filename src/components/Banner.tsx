@@ -1,4 +1,4 @@
-import bannerImage from '../assets/banner.png'
+import bannerImage from '../assets/cuisine.jpeg'
 import { config } from '../config/api'
 
 interface BannerProps {

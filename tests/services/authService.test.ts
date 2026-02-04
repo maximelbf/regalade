@@ -75,7 +75,7 @@ describe('authService', () => {
   })
 
   describe('login', () => {
-    it('should successfully login and set token cookie', async () => {
+    it('should successfully login and set isAuthenticated in sessionStorage', async () => {
       const credentials = { username: 'john', password: 'password123' }
       const mockResponse = { token: 'abc123token' }
 
@@ -94,7 +94,7 @@ describe('authService', () => {
         })
       )
       expect(result).toEqual(mockResponse)
-      expect(cookieStore).toContain('token=abc123token')
+      expect(sessionStorage.setItem).toHaveBeenCalledWith('isAuthenticated', 'true')
     })
 
     it('should clear user cache after login', async () => {
@@ -111,25 +111,23 @@ describe('authService', () => {
   })
 
   describe('isAuthenticated', () => {
-    it('should return true when token cookie exists', () => {
-      cookieStore = 'token=abc123; path=/'
+    it('should return true when isAuthenticated is set in sessionStorage', () => {
+      sessionStorageStore['isAuthenticated'] = 'true'
 
       const result = authService.isAuthenticated()
 
       expect(result).toBe(true)
     })
 
-    it('should return false when token cookie does not exist', () => {
-      cookieStore = 'other=value'
+    it('should return false when isAuthenticated is not set in sessionStorage', () => {
+      sessionStorageStore['isAuthenticated'] = 'false'
 
       const result = authService.isAuthenticated()
 
       expect(result).toBe(false)
     })
 
-    it('should return false when no cookies exist', () => {
-      cookieStore = ''
-
+    it('should return false when sessionStorage is empty', () => {
       const result = authService.isAuthenticated()
 
       expect(result).toBe(false)
@@ -137,8 +135,8 @@ describe('authService', () => {
   })
 
   describe('logout', () => {
-    it('should call logout endpoint and clear token', async () => {
-      cookieStore = 'token=abc123'
+    it('should call logout endpoint and clear isAuthenticated', async () => {
+      sessionStorageStore['isAuthenticated'] = 'true'
       ;(global.fetch as any).mockResolvedValueOnce({ ok: true })
 
       await authService.logout()
@@ -150,7 +148,7 @@ describe('authService', () => {
           credentials: 'include',
         })
       )
-      expect(cookieStore).toBe('')
+      expect(sessionStorageStore['isAuthenticated']).toBeUndefined()
     })
 
     it('should clear user cache on logout', async () => {
@@ -164,13 +162,13 @@ describe('authService', () => {
       expect((authService as any).cacheTimestamp).toBeNull()
     })
 
-    it('should clear token even if logout request fails', async () => {
-      cookieStore = 'token=abc123'
+    it('should clear isAuthenticated even if logout request fails', async () => {
+      sessionStorageStore['isAuthenticated'] = 'true'
       ;(global.fetch as any).mockRejectedValueOnce(new Error('Network error'))
 
       await authService.logout()
 
-      expect(cookieStore).toBe('')
+      expect(sessionStorageStore['isAuthenticated']).toBeUndefined()
     })
 
     it('should clear sessionStorage on logout', async () => {

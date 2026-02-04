@@ -56,26 +56,16 @@ class AuthService {
       body: JSON.stringify(credentials),
     })
 
-    if (response.token) {
-      this.setTokenCookie(response.token)
-      this.clearUserCache()
-    }
+    // Le backend gère les cookies HttpOnly via Set-Cookie header
+    // On utilise sessionStorage pour traquer l'état d'authentification côté client
+    sessionStorage.setItem('isAuthenticated', 'true')
+    this.clearUserCache()
 
     return response
   }
 
-  private setTokenCookie(token: string): void {
-    const expires = new Date()
-    expires.setDate(expires.getDate() + 7)
-    document.cookie = `token=${token}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`
-  }
-
-  private clearTokenCookie(): void {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-  }
-
   isAuthenticated(): boolean {
-    return document.cookie.split('; ').some(cookie => cookie.startsWith('token='))
+    return sessionStorage.getItem('isAuthenticated') === 'true'
   }
 
   async logout(): Promise<void> {
@@ -88,7 +78,7 @@ class AuthService {
     } catch (error) {
       console.error('Logout error:', error)
     } finally {
-      this.clearTokenCookie()
+      sessionStorage.removeItem('isAuthenticated')
       this.clearUserCache()
     }
   }
